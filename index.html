@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt chart</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <form>
+        <fieldset>
+            <legend>Controls</legend>
+            <input type="checkbox" id="hideSliders">
+            <label for="hideSliders">Hide controls</label>
+            <input type="checkbox" name="weeks" id="weeks" checked>
+            <label for="weeks">Show weeks</label>
+            <input type="checkbox" name="nameInBox" id="nameInBox">
+            <label for="nameInBox">Show task name in box</label>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Colour</legend>
+            <div>
+                <input type="radio" name="colour" id="default" checked>
+                <label for="default">Default</label>
+                <input type="color" id="defaultColour" value="#AADDFF">
+            </div>
+            <div>
+                <input type="radio" name="colour" id="random">
+                <label for="random">Random</label>
+            </div>
+            <div>
+                <input type="radio" name="colour" id="same">
+                <label for="same">All the same</label>
+                <input type="color" id="sameColour">
+            </div>
+        </fieldset>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th colspan="4" class="month" id="january">Jan</th>
+                <th colspan="4" class="month" id="february">Feb</th>
+                <th colspan="4" class="month" id="march">March</th>
+                <th colspan="4" class="month" id="april">April</th>
+                <th colspan="4" class="month" id="may">May</th>
+                <th colspan="4" class="month" id="june">June</th>
+                <th colspan="4" class="month" id="july">July</th>
+                <th colspan="4" class="month" id="august">August</th>
+                <th colspan="4" class="month" id="september">September</th>
+                <th colspan="4" class="month" id="october">October</th>
+                <th colspan="4" class="month" id="november">November</th>
+                <th colspan="4" class="month" id="december">December</th>
+            </tr>
+            <tr class="weeks">
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <button id="addTask" onclick="addTask()">Add Row</button>
+</body>
+
+<template id="rowTemplate">
+    <tr>
+        <td class="task">
+            <button class="controls removeBtn">X</button>
+            <textarea rows="1" class="taskName" type="text" placeholder="Task name"></textarea>
+            
+            <div class="controls">
+                <input type="color" class="colour">
+            </div>
+            <select class="startMonth controls">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select>
+            <select class="startWeek controls weekControl">
+                <option value="1">W1</option>
+                <option value="2">W2</option>
+                <option value="3">W3</option>
+                <option value="4">W4</option>
+            </select>
+            <select class="endMonth controls">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select>
+            <select class="endWeek controls weekControl">
+                <option value="1">W1</option>
+                <option value="2">W2</option>
+                <option value="3">W3</option>
+                <option value="4">W4</option>
+            </select>
+
+        </td>
+        <td class="taskLength" colspan="1"></td>
+    </tr>
+</template>
+</html>

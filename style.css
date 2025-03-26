@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+}
+
+table,
+tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.taskLength {
+    width: auto;
+}
+
+.task {
+    white-space: nowrap;
+}
+
+.incLeft,
+.decRight {
+    cursor: w-resize;
+}
+.incRight,
+.decLeft {
+    cursor: e-resize;
+}
+
+.lengthGrowLeft {
+    cursor: w-resize;
+    left: 0;
+}
+
+.lengthGrowRight {
+    cursor: e-resize;
+    right: 0;
+}
+
+body:has(#hideSliders:checked) .controls {
+    display: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.month {
+    padding: 0.2em 1em;
+}
+.empty {
+    border: none;
+}
+.controls {
+    display: inline;
+}
+.week {
+    padding: .1em .3em;
+    border: 1px solid black;
+}
+
+.taskLength {
+    white-space: pre;
+}
