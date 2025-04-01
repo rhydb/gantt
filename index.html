@@ -18,6 +18,23 @@
             <label for="weeks">Show weeks</label>
             <input type="checkbox" name="nameInBox" id="nameInBox" checked>
             <label for="nameInBox">Show task name in box</label>
+
+            <br>
+            <label for="startMonth">Starting month</label>
+            <select name="startMonth" id="startMonth">
+                <option selected value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select>
         </fieldset>
 
         <fieldset>
@@ -43,8 +60,8 @@
         <thead>
             <tr>
                 <th>Task Name</th>
-                <th colspan="4" class="month" id="january">Jan</th>
-                <th colspan="4" class="month" id="february">Feb</th>
+                <th colspan="4" class="month" id="january">January</th>
+                <th colspan="4" class="month" id="february">February</th>
                 <th colspan="4" class="month" id="march">March</th>
                 <th colspan="4" class="month" id="april">April</th>
                 <th colspan="4" class="month" id="may">May</th>
@@ -70,6 +87,8 @@
 <template id="rowTemplate">
     <tr>
         <td class="task">
+            <button class="controls upBtn">&uarr;</button>
+            <button class="controls downBtn">&darr;</button>
             <button class="controls removeBtn">X</button>
             <textarea rows="1" class="taskName" type="text" placeholder="Task name"></textarea>
             

@@ -5,6 +5,11 @@ var currentSlider = null;
 let weeksMode = true;
 let tasks = [];
 
+let months = [
+    "january", "february", "march", "april", "may", "june", 
+    "july", "august", "september", "october", "november", "december"
+];
+
 function setWeeksMode(value) {
     // show the weeks controls and headers
     // reduce the colspan of the month headers and update the colspan of the tasks
@@ -46,11 +51,11 @@ function randomHexColour() {
 document.addEventListener("DOMContentLoaded", () => {
     cellWidth = window.getComputedStyle(document.documentElement).getPropertyValue('--cell-width');
 
-    const months = document.querySelectorAll(".month");
+    const thMonths = document.querySelectorAll(".month");
     const weeks = document.querySelector(".weeks");
 
     // add the week headings
-    for (let i = 0; i < months.length; i++) {
+    for (let i = 0; i < thMonths.length; i++) {
         for (let i = 0; i < 4; i++) {
             const w = document.createElement("th");
             w.classList.add("week");
@@ -86,6 +91,28 @@ document.addEventListener("DOMContentLoaded", () => {
             tasks.forEach(t => t.hideName());
         }
     })
+
+    document.getElementById("startMonth").addEventListener("input", (e) => {
+        const startIndex = months.indexOf(e.target.value);
+        months = [
+            ...months.slice(startIndex), // the new start up to the end
+            ...months.slice(0, startIndex) // the beginning of the array up to the start
+        ];
+
+        const headerRow = document.getElementById("january").parentElement;
+        const fragment = document.createDocumentFragment();
+        months.forEach((m) => {
+            const header = document.getElementById(m);
+            if (header) {
+                // move the child into the fragment
+                fragment.appendChild(header);
+            }
+        })
+
+        // add the elements back in, now in the correct order
+        headerRow.appendChild(fragment);
+        tasks.forEach(t => t.updateColSpan());
+    })
 })
 
 
@@ -107,11 +134,6 @@ function getMonthWidth() {
 }
 
 class Task {
-    static months = [
-        "january", "february", "march", "april", "may", "june", 
-        "july", "august", "september", "october", "november", "december"
-    ];
-    
     constructor(row, startMonth, startWeek, endMonth, endWeek) {
         this.row = row;
         this.startMonth = startMonth;
@@ -133,6 +155,12 @@ class Task {
 
             this.row.remove();
         });
+        row.querySelector(".upBtn").addEventListener("click", () => {
+            row.parentNode.insertBefore(row, row.previousElementSibling);
+        })
+        row.querySelector(".downBtn").addEventListener("click", () => {
+            row.parentNode.insertBefore(row.nextElementSibling, row);
+        })
 
         row.querySelector(".startMonth").addEventListener("input", (e) => this.startMonth = e.target.value);
         row.querySelector(".startWeek").addEventListener("input", (e) => this.startWeek = e.target.value);
@@ -240,12 +268,10 @@ class Task {
         this.updateColSpan();
     }
 
-
-
     getMonthIndexes() {
         return {
-            startMonthIndex: this.constructor.months.indexOf(this.startMonth),
-            endMonthIndex: this.constructor.months.indexOf(this.endMonth),
+            startMonthIndex: months.indexOf(this.startMonth),
+            endMonthIndex: months.indexOf(this.endMonth),
         }
     }
 
@@ -253,7 +279,6 @@ class Task {
         const { startMonthIndex, endMonthIndex } = this.getMonthIndexes();
 
         const empties = this.row.querySelectorAll(".empty");
-        console.log(this.startWeek);
         const requiredEmpties = startMonthIndex * getMonthWidth() + this.startWeek;
         if (empties.length > requiredEmpties) {
             console.log("removing empties", empties.length, "vs", requiredEmpties);
@@ -268,7 +293,6 @@ class Task {
             }
         } else {
             const toAdd = requiredEmpties - empties.length;
-            console.log("adding empties", empties.length, "to", requiredEmpties);
             for (let i = 0; i < toAdd; i++) {
                 const td = document.createElement("td");
                 td.classList.add("empty");
@@ -281,7 +305,6 @@ class Task {
         const colspan = Math.max(1,
             (endMonthIndex - startMonthIndex + (weeksMode ? 0 : 1)) * getMonthWidth() + this.endWeek - this.startWeek
         );
-        console.log("colspan:", colspan, "endWeek:", this.endWeek);
         taskLength.colSpan = colspan;
         taskLength.style.display = "none";
         setTimeout(() => {
@@ -307,6 +330,9 @@ if ("content" in document.createElement("template")) {
 
         const task = new Task(row, "january", 1, "january", 1)
         task.name = taskName;
+        if (!document.getElementById("nameInBox").checked) {
+            task.hideName();
+        }
         tasks.push(task);
     }
 }
