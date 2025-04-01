@@ -78,6 +78,14 @@ document.addEventListener("DOMContentLoaded", () => {
             tasks.forEach(t => t.colour = document.getElementById("sameColour").value);
         }
     })
+
+    document.getElementById("nameInBox").addEventListener("input", (e) => {
+        if (e.target.checked) {
+            tasks.forEach(t => t.showName());
+        } else {
+            tasks.forEach(t => t.hideName());
+        }
+    })
 })
 
 
@@ -132,6 +140,13 @@ class Task {
         row.querySelector(".endWeek").addEventListener("input", (e) => this.endWeek = e.target.value);
         row.querySelector(".colour").addEventListener("input", (e) => this.colour = e.target.value);
         row.querySelector(".taskName").addEventListener("input", (e) => this.name = e.target.value);
+    }
+
+    hideName() {
+        this.row.querySelector(".taskLength").style.fontSize = 0;
+    }
+    showName() {
+        this.row.querySelector(".taskLength").style.fontSize = "initial";
     }
 
     get name() {
