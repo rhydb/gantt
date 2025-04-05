@@ -9,24 +9,28 @@
 </head>
 <body>
 
-    <fieldset>
-        <legend>Help&sol;About</legend>
+    <div class="noprint">
         <a href="https://github.com/rhydb/gantt">Source</a>
         <details>
             <summary>How do I save?</summary>
             The chart is automatically stored to the URL. This means you can save the URL as a bookmark, as a link, or paste it somewhere, and you can load the chart again. The data is never sent anywhere and is stored only in this URL.
         </details>
         <details>
-            <summary>Run offline</summary>
-            This page is fully client-side which means you can save the page (CTRL-S) and use it offline.
+            <summary>How do I export/download?</summary>
+            The intended method is to use the browser's print capability. Only the chart will be shown.
+            Some browsers (Firefox) also have the ability to print a selection of the page by holding <kbd>Ctrl</kbd> and dragging or clicking.
         </details>
-    </fieldset
+        <details>
+            <summary>Run offline</summary>
+            This page is fully client-side which means you can save the page (<kbd>CTRL</kbd>+<kbd>S</kbd>) and use it offline.
+        </details>
+    </div>
 
-    <form>
-        <fieldset>
+    <form class="noprint">
+        <fieldset class="noprint">
             <legend>Controls</legend>
-            <input type="checkbox" id="hideSliders">
-            <label for="hideSliders">Hide controls</label>
+            <input type="checkbox" id="hideControls">
+            <label for="hideControls">Hide controls</label>
             <input type="checkbox" name="weeks" id="weeks" checked>
             <label for="weeks">Show weeks</label>
             <input type="checkbox" name="nameInBox" id="nameInBox" checked>
@@ -50,7 +54,7 @@
             </select>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="noprint">
             <legend>Colour</legend>
             <div>
                 <input type="radio" name="colour" id="default" checked>
@@ -94,7 +98,7 @@
         </tbody>
     </table>
 
-    <button id="addTask" onclick="addTask()">Add Row</button>
+    <button class="controls" id="addTask" onclick="addTask()">Add Row</button>
 </body>
 
 <template id="rowTemplate">
