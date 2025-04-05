@@ -398,7 +398,16 @@ function createTask(opts = {}) {
 }
 
 function addTask() {
-    const task = createTask();
+    let opts = {}
+    if (tasks.length > 0) {
+        // copy the start/end of the previous task
+        const prevTask = tasks[tasks.length - 1];
+        opts.startMonth = prevTask.startMonth;
+        opts.startWeek = prevTask.startWeek;
+        opts.endMonth = prevTask.endMonth;
+        opts.endWeek = prevTask.endWeek;
+    }
+    const task = createTask(opts);
     task.setIndex(tasks.length - 1);
 }
 
